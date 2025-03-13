@@ -29,7 +29,7 @@ define( 'APP_ADS_TXT_MANAGER_POST_OPTION', 'app_adstxt_post' );
  *
  * @return string Minimum version required.
  */
-function adstxt_minimum_php_requirement() {
+function adstxt_minimum_php_requirement(): string {
 	return '7.4';
 }
 
@@ -38,7 +38,7 @@ function adstxt_minimum_php_requirement() {
  *
  * @return bool True if meets minimum requirements, false otherwise.
  */
-function adstxt_site_meets_php_requirements() {
+function adstxt_site_meets_php_requirements(): bool {
 	return version_compare( phpversion(), adstxt_minimum_php_requirement(), '>=' );
 }
 

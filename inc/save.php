@@ -117,14 +117,14 @@ add_action( 'wp_ajax_app-adstxt-save', __NAMESPACE__ . '\save' );
  *
  * @param string $line                         The line to validate.
  * @param string $line_number                  The line number being evaluated.
- * @param string $has_only_placeholder_records Flag for presence of placeholder record.
+ * @param string|null $has_only_placeholder_records Flag for presence of placeholder record.
  *
  * @return array {
  *     @type string $sanitized Sanitized version of the original line.
  *     @type array  $errors    Array of errors associated with the line.
  * }
  */
-function validate_line( $line, $line_number, $has_only_placeholder_records = null ) {
+function validate_line( string $line, string $line_number, ?string $has_only_placeholder_records = null ): array {
 	static $record_lines   = 0;
 	$is_placeholder_record = false;
 	$is_empty_record       = false;
@@ -258,7 +258,7 @@ function validate_line( $line, $line_number, $has_only_placeholder_records = nul
  *
  * @return void
  */
-function clear_error_meta( $post_id ) {
+function clear_error_meta( int $post_id ) {
 	delete_post_meta( $post_id, 'adstxt_errors' );
 }
 add_action( 'wp_restore_post_revision', __NAMESPACE__ . '\clear_error_meta', 10, 1 );
@@ -276,7 +276,7 @@ add_action( 'wp_restore_post_revision', __NAMESPACE__ . '\clear_error_meta', 10,
  *
  * @return bool
  */
-function is_placeholder_record( $exchange, $pub_id, $account_type, $tag_id = null ) {
+function is_placeholder_record( string $exchange, string $pub_id, string $account_type, ?string $tag_id = null ): bool {
 	$result = true;
 
 	// Check the exchange for placeholder.

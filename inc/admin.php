@@ -10,11 +10,10 @@ namespace AdsTxt;
 /**
  * Enqueue any necessary scripts.
  *
- * @param  string $hook Hook name for the current screen.
- *
+ * @param string $hook Hook name for the current screen.
  * @return void
  */
-function admin_enqueue_scripts( $hook ) {
+function admin_enqueue_scripts( string $hook ) {
 	if ( ! preg_match( '/adstxt-settings$/', $hook ) ) {
 		return;
 	}
@@ -79,7 +78,7 @@ add_action( 'admin_head-settings_page_app-adstxt-settings', __NAMESPACE__ . '\ad
  * @param string $url Edit url.
  * @return string Edit url.
  */
-function ads_txt_adjust_revisions_return_to_editor_link( $url ) {
+function ads_txt_adjust_revisions_return_to_editor_link( string $url ): string {
 	global $pagenow, $post;
 
 	if ( 'revision.php' !== $pagenow || ! isset( $_REQUEST['adstxt'] ) ) { // @codingStandardsIgnoreLine Nonce not required.
@@ -105,7 +104,7 @@ add_filter( 'get_edit_post_link', __NAMESPACE__ . '\ads_txt_adjust_revisions_ret
  * @param array $revisions_data The bootstrapped data for the revisions screen.
  * @return array Modified bootstrapped data for the revisions screen.
  */
-function adstxt_revisions_restore( $revisions_data ) {
+function adstxt_revisions_restore( array $revisions_data ): array {
 	if ( isset( $_REQUEST['adstxt'] ) ) { // @codingStandardsIgnoreLine Nonce not required.
 		$revisions_data['restoreUrl'] = add_query_arg(
 			'adstxt',
@@ -229,10 +228,9 @@ function app_adstxt_settings_screen() {
  * @param int   $post_id Post ID associated with the file.
  * @param array $strings Translated strings that mention the specific file name.
  * @param array $args    Array of other necessary information to appropriately name items.
- *
  * @return void
  */
-function settings_screen( $post_id, $strings, $args ) {
+function settings_screen( int $post_id, array $strings, array $args ) {
 	$post             = false;
 	$content          = false;
 	$errors           = array();
@@ -435,7 +433,7 @@ function settings_screen( $post_id, $strings, $args ) {
  *
  * @return string|void
  */
-function display_formatted_error( $error ) {
+function display_formatted_error( array $error ) {
 	$messages = get_error_messages();
 
 	if ( ! isset( $messages[ $error['type'] ] ) ) {
@@ -461,7 +459,7 @@ function display_formatted_error( $error ) {
  *
  * @return array Associative array of error messages.
  */
-function get_error_messages() {
+function get_error_messages(): array {
 	$messages = array(
 		'invalid_variable'     => __( 'Unrecognized variable', 'ads-txt' ),
 		'invalid_record'       => __( 'Invalid record', 'ads-txt' ),
@@ -515,7 +513,7 @@ add_action( 'admin_notices', __NAMESPACE__ . '\admin_notices' );
  *
  * @return boolean
  */
-function clean_orphaned_posts( $option, $post_type ) {
+function clean_orphaned_posts( int $option, string $post_type ): bool {
 	$args = [
 		'fields'    => 'ids', // Only get post IDs.
 		'post_type' => $post_type,

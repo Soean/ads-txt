@@ -113,10 +113,9 @@ register_deactivation_hook( __FILE__, __NAMESPACE__ . '\remove_capabilities' );
  * Add a query var to detect when ads.txt has been saved.
  *
  * @param array $qvars Array of query vars.
- *
  * @return array Array of query vars.
  */
-function add_query_vars( $qvars ) {
+function add_query_vars( array $qvars ): array {
 	$qvars[] = 'ads_txt_saved';
 	return $qvars;
 }
